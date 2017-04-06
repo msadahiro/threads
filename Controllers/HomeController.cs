@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using eCommerce.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,16 @@ namespace eCommerce.Controllers
         // GET: /Home/
         [HttpGet]
         [Route("")]
-        public IActionResult Index()
+        public IActionResult Dashboard()
         {
             return View();
         }
         [HttpGet]
         [RouteAttribute("customers")]
         public IActionResult Customers(){
+            List<User> getAllUsers = _context.users
+                .ToList();
+            ViewBag.ListOfUsers = getAllUsers;
             return View();
         }
     }
