@@ -17,5 +17,10 @@ namespace eCommerce.Models{
             CreatedAt = DateTime.Now;
             UpdatedAt = DateTime.Now;
         }
+
+        internal void Include(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

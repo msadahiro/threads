@@ -9,6 +9,7 @@ namespace eCommerce.Models{
         public Product Product {get;set;}
         public DateTime CreatedAt{get;set;}
         public DateTime UpdatedAt {get;set;}
+        public int Quantity {get;set;}
 
         public Order(){
             CreatedAt = DateTime.Now;

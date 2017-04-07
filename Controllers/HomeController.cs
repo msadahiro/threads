@@ -27,6 +27,14 @@ namespace eCommerce.Controllers
                 .OrderByDescending(create => create.CreatedAt)
                 .ToList();
             var latestCustomers = getRecent.Take(3);
+
+            List<Order> getRecentOrders = _context.orders
+                .OrderByDescending(orders => orders.CreatedAt)
+                .Include(user => user.User)
+                .Include(item => item.Product)
+                .ToList();
+            var latestOrders = getRecentOrders.Take(3);
+            ViewBag.RecentOrders = latestOrders;
             ViewBag.RecentCustomers = latestCustomers;
             ViewBag.Today = todayString;
             return View();

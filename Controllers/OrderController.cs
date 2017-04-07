@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eCommerce.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerce.Controllers
 {
@@ -24,9 +25,27 @@ namespace eCommerce.Controllers
                 return RedirectToAction("products","Product");
             }
             int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+            User getWishList = _context.users
+                .Where(user => user.id == (int)getUserId)
+                .Include(orders => orders.Purchases)
+                .SingleOrDefault();
+            foreach(var order in getWishList.Purchases){
+               if((order.UserId == (int)getUserId) && (order.ProductId == id)){
+                   var orderId = order.id;
+                   Order updateQuantity = _context.orders.SingleOrDefault(o => o.id == orderId);
+                   updateQuantity.Quantity += 1;
+                   _context.SaveChanges();
+                   Product UpdateProductQuantity = _context.products.SingleOrDefault(item => item.id == id);
+                    UpdateProductQuantity.Quantity--;
+                    _context.SaveChanges();
+                   HttpContext.Session.SetString("Error","");
+                   return RedirectToAction("products","Product");
+               }
+            }
             Order newOrder = new Order(){
                 UserId = (int)getUserId,
-                ProductId = id
+                ProductId = id,
+                Quantity =  + 1
             };
             _context.Add(newOrder);
             _context.SaveChanges();

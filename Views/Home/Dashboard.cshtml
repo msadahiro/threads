@@ -11,7 +11,11 @@
         </div>
         <div class="bottom">
             <h4>Recent Orders</h4>
-
+            @{
+                foreach(var order in @ViewBag.RecentOrders){
+                    <p>@order.User.FirstName added @order.Quantity</p>
+                }
+            }
 
             <h4>New Customers</h4>
             @{
