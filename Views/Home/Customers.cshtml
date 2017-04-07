@@ -16,9 +16,16 @@
                     @{
                             foreach(var user in @ViewBag.ListOfUsers){
                                 <tr>
-                                <td>@user.FirstName @user.LastName</td>
-                                <td>@user.Purchases.Count</td>
-                                <td><a href="/show/@user.id">Show Shopping Bag</a></td>
+                                
+                                @{bool count = false;}
+                                @if(@user.Purchases.Count > 0){
+                                    count = true;
+                                }
+                                @if(@count == true){
+                                    <td>@user.FirstName @user.LastName</td>
+                                    <td>@user.Purchases.Count</td>
+                                    <td><a href="/show/@user.id">Show Shopping Bag</a></td>
+                                }
                                 </tr>
                             }
                         }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eCommerce.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerce.Controllers {
     public class ProductController:Controller{
@@ -36,6 +37,17 @@ namespace eCommerce.Controllers {
                 ViewBag.errors = ModelState.Values;
                 return View("Products");
             }
+        }
+        [HttpGet]
+        [RouteAttribute("showProduct/{id}")]
+        public IActionResult showProduct(int id){
+            Product showOne = _context.products
+                .Where(item => item.id == id)
+                .Include(order => order.Orders)
+                    .ThenInclude(user => user.User)
+                .SingleOrDefault();
+            ViewBag.ShowProduct = showOne;
+            return View();
         }
     }    
 }

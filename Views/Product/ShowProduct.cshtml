@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "One Product";
+}
+
+<div id="OneProduct">
+    <div class="container">
+        <div class="top">
+            <h3>@ViewBag.ShowProduct.Name</h3>
+            <img src="@ViewBag.ShowProduct.Image">
+
+            <p><b>Description: </b>@ViewBag.ShowProduct.Description</p>
+        </div>
+        <div class="middle">
+            <h4>Other Users that have added this product to their wishlist</h4>
+            @{
+                foreach(var user in @ViewBag.ShowProduct.Orders){
+                    <p>@user.User.FirstName @user.User.LastName</p>
+                }
+            }
+        </div>
+    </div>
+</div>

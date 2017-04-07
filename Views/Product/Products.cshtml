@@ -50,8 +50,8 @@
             @{
                 foreach(var product in @ViewBag.AllProducts){
                     <div class="right">
-                    <img src="@product.Image" alt="">
-                    <p>@product.Name</p>
+                    <a href="showProduct/@product.id"><img src="@product.Image" alt=""></a>
+                    <p><a href="showProduct/@product.id">@product.Name</a></p>
 
                     @{bool soldOut = false;}
                     @if(@product.Quantity < 1){

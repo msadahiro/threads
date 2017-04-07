@@ -55,3 +55,12 @@
     vertical-align: top;
     margin-left: 100px;
 }
+
+#OneProduct .container .top img {
+    display: inline-block;
+    width: 350px;
+}
+
+#OneProduct .container .top p {
+    display: inline-block;
+}

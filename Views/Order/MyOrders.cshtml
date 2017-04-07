@@ -16,7 +16,7 @@
                         foreach(var order in @ViewBag.ShowOne){
                             foreach(var item in order.Purchases){
                                 <tr>
-                                    <td><img src="@item.Product.Image" alt="" style="width:50px">     @item.Product.Name</td>
+                                    <td><a href="showProduct/@item.ProductId"><img src="@item.Product.Image" alt="" style="width:50px">     @item.Product.Name</a></td>
                                     <td>@item.Quantity</td>
                                     <td><button><a href="remove/@item.ProductId">Remove Order</a></button></td>
                                 </tr>
