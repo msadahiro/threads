@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eCommerce.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,7 +43,9 @@ namespace eCommerce.Controllers
         [HttpGet]
         [RouteAttribute("customers")]
         public IActionResult Customers(){
+            int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
             List<User> getAllUsers = _context.users
+                .Where(user => user.id != getUserId)
                 .Include(order => order.Purchases)
                     .ThenInclude(item => item.Product)
                 .ToList();

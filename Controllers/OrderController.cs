@@ -17,6 +17,23 @@ namespace eCommerce.Controllers
         {
             _context = context;
         }
+
+        [HttpGet]
+        [RouteAttribute("orders")]
+        public IActionResult MyOrders(){
+            if(HttpContext.Session.GetInt32("CurrentUser")==null){
+                HttpContext.Session.SetString("Error","Need to be logged in to see your orders");
+                return RedirectToAction("Login","User");
+            }
+            int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+            List<User> getOneUserWishList = _context.users
+                .Where(user => user.id == getUserId)
+                .Include(order => order.Purchases)
+                    .ThenInclude(item => item.Product)
+                .ToList();
+            ViewBag.ShowOne = getOneUserWishList;
+            return View();
+        }
         [HttpGet]
         [RouteAttribute("order/{id}")]
         public IActionResult OrderItem(int id){

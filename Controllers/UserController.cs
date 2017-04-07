@@ -20,6 +20,7 @@ namespace eCommerce.Controllers
         [RouteAttribute("login")]
         public IActionResult Login(){
             ViewBag.errors = new List<string>();
+            ViewBag.LoginError = HttpContext.Session.GetString("Error");
             ViewBag.LogError = "";
             ViewBag.RegEmailError = "";
             return View();
