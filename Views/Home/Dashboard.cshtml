@@ -1,4 +1,24 @@
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
-Home
+<div id="dashboard">
+    <div class="container">
+        <div>
+            <h1>BIG IMAGE GOING HERE</h1>
+        </div>
+        <div class="middle">
+
+        </div>
+        <div class="bottom">
+            <h4>Recent Orders</h4>
+
+
+            <h4>New Customers</h4>
+            @{
+                foreach(var customer in @ViewBag.RecentCustomers){
+                    <p>@customer.FirstName @customer.LastName created their account (@customer.CreatedAt - @ViewBag.Today)</p>
+                }
+            }
+        </div>
+    </div>
+</div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eCommerce.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerce.Controllers {
@@ -18,6 +19,7 @@ namespace eCommerce.Controllers {
         public IActionResult Products(){
             List<Product> getAllProducts = _context.products
                 .ToList();
+            ViewBag.LoginError = HttpContext.Session.GetString("Error");;
             ViewBag.AllProducts = getAllProducts;
             ViewBag.errors = new List<string>();
             return View();

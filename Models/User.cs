@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace eCommerce.Models{
     public class User {
@@ -11,6 +12,7 @@ namespace eCommerce.Models{
         public DateTime CreatedAt{get;set;}
         public DateTime UpdatedAt{get;set;}
 
+        public List <Order> Purchases {get;set;}
         public User (){
             CreatedAt = DateTime.Now;
             UpdatedAt = DateTime.Now;

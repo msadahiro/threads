@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace eCommerce.Models{
     public class Product{
@@ -10,6 +11,8 @@ namespace eCommerce.Models{
 
         public DateTime CreatedAt {get;set;}
         public DateTime UpdatedAt {get;set;}
+
+        public List <Order> Orders {get;set;}
 
         public Product(){
             CreatedAt = DateTime.Now;

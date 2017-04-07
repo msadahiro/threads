@@ -9,15 +9,23 @@
     vertical-align: top;
     border: 1px solid black;
     padding: 10px;
+    height: 100%;
 }
 
-.right {
+.OuterRight {
+    display: inline-block;
+    vertical-align: top;
+    width: 80%
+}
+
+.OuterRight .right {
     display: inline-block;
     vertical-align: top;
     border: 1px solid black;
     text-align: center;
     margin-left: 10px;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
 .right img {
@@ -34,4 +42,16 @@
 
 .form-group .col-xs-2 input .form-control {
     width: 100%;
+}
+
+.registerSection {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 200px;
+}
+
+.loginSection {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 100px;
 }

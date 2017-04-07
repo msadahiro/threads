@@ -20,6 +20,7 @@ namespace eCommerce.Controllers
         [RouteAttribute("login")]
         public IActionResult Login(){
             ViewBag.errors = new List<string>();
+            ViewBag.LogError = "";
             ViewBag.RegEmailError = "";
             return View();
         }
@@ -42,8 +43,34 @@ namespace eCommerce.Controllers
             else{
                 ViewBag.RegEmailError = "";
             }
+            ViewBag.LogError = "";
+            ViewBag.RegEmailError = "";
             ViewBag.errors = ModelState.Values;
             return View("Login");
         }
+        [HttpPost]
+        [RouteAttribute("signIn")]
+        public IActionResult LoginUser(string Email, string Password, LoginViewModel model){
+            if(ModelState.IsValid){
+                User SignInUser = _context.users.Where(User => User.Email == Email).SingleOrDefault();
+                if(SignInUser != null && Password != null){
+                    if(SignInUser.Password == Password){
+                        HttpContext.Session.SetInt32("CurrentUser",(int)SignInUser.id);
+                        return RedirectToAction ("dashboard","Home");
+                    }
+                }
+            }
+            ViewBag.errors = new List<string>();
+            ViewBag.RegEmailError = "";
+            ViewBag.LogError = "Invalid Login";
+            return View ("Login");
+        }
+        [HttpGet]
+        [RouteAttribute("logout")]
+        public IActionResult Logout(){
+            HttpContext.Session.Clear();
+            return RedirectToAction ("Login");
+        }
+        
     }
 }

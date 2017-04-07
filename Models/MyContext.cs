@@ -8,5 +8,6 @@ namespace eCommerce.Models
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
         public DbSet<User> users {get;set;}
         public DbSet<Product> products {get;set;}
+        public DbSet<Order> orders {get;set;}
     }
 }
