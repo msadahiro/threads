@@ -72,5 +72,23 @@ namespace eCommerce.Controllers
             HttpContext.Session.SetString("Error","");
             return RedirectToAction("products","Product");
         }
+        [HttpGet]
+        [RouteAttribute("remove/{id}")]
+        public IActionResult RemoveOrder(int id){
+            int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+            List<Order> deleteAll = _context.orders
+                .Where(product => product.ProductId == id)
+                .ToList();
+            foreach(var item in deleteAll){
+                _context.Remove(item);
+                _context.SaveChanges();
+            }
+            Product UpdateProductQuantity = _context.products.SingleOrDefault(prod => prod.id == id);
+            foreach(var deleteditem in deleteAll){
+                UpdateProductQuantity.Quantity+= deleteditem.Quantity;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("MyOrders");
+        }
     }
 }
