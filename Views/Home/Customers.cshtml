@@ -11,8 +11,7 @@
                     <th>Shopping Cart</th>
                 </tr>
                 </thead>
-                <tbody>
-                
+                <tbody>             
                     @{
                             foreach(var user in @ViewBag.ListOfUsers){
                                 <tr>
@@ -24,7 +23,7 @@
                                 @if(@count == true){
                                     <td>@user.FirstName @user.LastName</td>
                                     <td>@user.Purchases.Count</td>
-                                    <td><a href="/show/@user.id">Show Shopping Bag</a></td>
+                                    <td><a href="/customer/@user.id">Show Shopping Bag</a></td>
                                 }
                                 </tr>
                             }

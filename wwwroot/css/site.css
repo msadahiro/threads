@@ -1,5 +1,9 @@
 /*Write all of your CSS here*/
 
+body {
+    padding-bottom: 100px;
+}
+
 #productsPage .left .form-group-row {
     width: 100px;
 }
@@ -26,6 +30,7 @@
     margin-left: 10px;
     padding: 10px;
     margin-bottom: 10px;
+    min-height: 225px;
 }
 
 .right img {
@@ -62,5 +67,32 @@
 }
 
 #OneProduct .container .top p {
+    display: inline-block;
+}
+
+#OneCustomer .container .middle img {
+    display: inline-block;
+    width: 350px;
+}
+
+#dashboard .container .bottom {
+    text-align: center;
+}
+
+#dashboard .container .middle {
+    padding-top: 30px;
+    margin-left: 20px;
+    display: inline-block
+}
+
+#dashboard .container .middle .innerMiddle img {
+    width: 200px;
+    min-height: 150px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+#dashboard .container .middle .innerMiddle {
+    text-align: center;
     display: inline-block;
 }

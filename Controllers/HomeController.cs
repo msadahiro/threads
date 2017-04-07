@@ -35,6 +35,12 @@ namespace eCommerce.Controllers
                 .Include(item => item.Product)
                 .ToList();
             var latestOrders = getRecentOrders.Take(3);
+
+            List<Product> getRecentProd = _context.products
+                .OrderByDescending(created => created.CreatedAt)
+                .ToList();
+            var latestProducts = getRecentProd.Take(5);
+            ViewBag.RecentProducts = latestProducts;
             ViewBag.RecentOrders = latestOrders;
             ViewBag.RecentCustomers = latestCustomers;
             ViewBag.Today = todayString;
@@ -52,5 +58,17 @@ namespace eCommerce.Controllers
             ViewBag.ListOfUsers = getAllUsers;
             return View();
         }
+        [HttpGet]
+        [RouteAttribute("customer/{id}")]
+        public IActionResult ShowOneCustomer(int id){
+            User getOne = _context.users
+                .Where(user => user.id == id)
+                .Include(orders => orders.Purchases)
+                    .ThenInclude(item => item.Product)
+                .SingleOrDefault();
+            ViewBag.OneCustomer = getOne;
+            return View();
+        }
+
     }
 }

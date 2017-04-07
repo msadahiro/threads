@@ -31,6 +31,7 @@ namespace eCommerce.Controllers
                 .Include(order => order.Purchases)
                     .ThenInclude(item => item.Product)
                 .ToList();
+            HttpContext.Session.SetString("Error","");
             ViewBag.ShowOne = getOneUserWishList;
             return View();
         }

@@ -21,6 +21,7 @@ namespace eCommerce.Controllers {
             List<Product> getAllProducts = _context.products
                 .ToList();
             ViewBag.LoginError = HttpContext.Session.GetString("Error");
+            HttpContext.Session.SetString("Error","");
             ViewBag.AllProducts = getAllProducts;
             ViewBag.errors = new List<string>();
             return View();

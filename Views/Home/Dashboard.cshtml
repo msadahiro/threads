@@ -3,10 +3,42 @@
 }
 <div id="dashboard">
     <div class="container">
-        <div>
-            <h1>BIG IMAGE GOING HERE</h1>
-        </div>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                <img src="/images/closet.jpg" alt="Closet">
+                </div>
+
+                <div class="item">
+                <img src="/images/knitting.jpg" alt="Knitting">
+                </div>
+
+                <div class="item">
+                <img src="/images/scarves.jpg" alt="Scarves">
+                </div>
+
+                <div class="item">
+                <img src="/images/buttons.jpg" alt="Button">
+                </div>
+            </div>
+            </div>
         <div class="middle">
+            @{
+                foreach(var product in @ViewBag.RecentProducts){
+                    <div class="innerMiddle">
+                    <img src="@product.Image" alt="">
+                    <p>@product.Name</p>
+                    </div>
+                }
+            }
 
         </div>
         <div class="bottom">
@@ -16,7 +48,6 @@
                     <p>@order.User.FirstName added @order.Quantity @order.Product.Name ... (@order.CreatedAt)</p>
                 }
             }
-            <a href="/orders">Show all Orders</a>
 
             <h4>New Customers</h4>
             @{
