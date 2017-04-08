@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div id="edit">
+    <div class="container">
+        <div class="middle">
+            <div class="error">
+            @{
+                foreach(var error in ViewBag.Errors)
+                {
+                    //If there are any errors for a field...
+                    if(@error.Errors.Count > 0)
+                    {
+                        // We show the first error for that field
+                        <p>@error.Errors[0].ErrorMessage</p>
+                    }
+                }
+            }
+        </div>
+            <form action="edit" method="post">
+                <div class="form-group">
+                    <label for="email">First Name:</label>
+                    <input type="text" class="form-control" id="FirstName" name="FirstName" value="@ViewBag.Edit.FirstName">
+                </div>
+                <div class="form-group">
+                    <label for="email">Last Name:</label>
+                    <input type="text" class="form-control" id="LastName" name="LastName" value="@ViewBag.Edit.LastName">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address:</label>
+                    <input type="email" class="form-control" id="Email" name="Email" value="@ViewBag.Edit.Email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" id="Password" name="Password">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Confirm Password:</label>
+                    <input type="password" class="form-control" id="PasswordConfirmation" name="PasswordConfirmation">
+                </div>
+                <a href="/settings" class="btn btn-default">Back</a>
+                <button type="submit" class="btn btn-default">Edit Settings</button>
+            </form>
+        </div>
+    </div>
+</div>

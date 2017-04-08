@@ -73,6 +73,40 @@ namespace eCommerce.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction ("Login");
         }
-        
+        // Get : goes to edit page
+        [HttpGet]
+        [RouteAttribute("edit")]
+        public IActionResult Edit(){
+            if(HttpContext.Session.GetInt32("CurrentUser")==null){
+                HttpContext.Session.SetString("Error","Need an account to view Settings page");
+                return RedirectToAction("Login","User");
+            }
+            int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+            User editInfo = _context.users
+                .Where(user => user.id == (int)getUserId)
+                .SingleOrDefault();
+            ViewBag.Edit = editInfo;
+            ViewBag.Errors = new List<string>();
+            return View();
+        }
+        [HttpPost]
+        [RouteAttribute("edit")]
+        public IActionResult EditUser(LoginViewModel model, User newUserInfo){
+            int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+            if(ModelState.IsValid){
+                User updateUserInfo = _context.users
+                    .SingleOrDefault(user => user.id == (int)getUserId);
+                    updateUserInfo.FirstName = newUserInfo.FirstName;
+                    updateUserInfo.LastName = newUserInfo.LastName;
+                    updateUserInfo.Email = newUserInfo.Email;
+                    updateUserInfo.Password = newUserInfo.Password;
+                    _context.SaveChanges();
+                    return RedirectToAction("Settings","Home");
+            }
+            ViewBag.Edit = _context.users
+                .SingleOrDefault(user => user.id == (int)getUserId);
+            ViewBag.Errors = ModelState.Values;
+            return View("Edit");
+        }
     }
 }

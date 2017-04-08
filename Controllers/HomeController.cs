@@ -73,7 +73,13 @@ namespace eCommerce.Controllers
                 HttpContext.Session.SetString("Error","Need an account to view Settings page");
                 return RedirectToAction("Login","User");
             }
-            
+            int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+            User getInfo = _context.users
+                .Where(user => user.id == (int)getUserId)
+                .Include(orders => orders.Purchases)
+                    .ThenInclude(item => item.Product)
+                .SingleOrDefault();
+            ViewBag.SettingsForOne = getInfo;
             return View();
         }
     }
