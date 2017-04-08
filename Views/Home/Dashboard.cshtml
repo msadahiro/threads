@@ -3,33 +3,10 @@
 }
 <div id="dashboard">
     <div class="container">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
-            </ol>
-            <!-- Wrapper for slides -->
-            <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                <img src="/images/closet.jpg" alt="Closet">
-                </div>
-
-                <div class="item">
-                <img src="/images/knitting.jpg" alt="Knitting">
-                </div>
-
-                <div class="item">
-                <img src="/images/scarves.jpg" alt="Scarves">
-                </div>
-
-                <div class="item">
-                <img src="/images/buttons.jpg" alt="Button">
-                </div>
+            <div class="top">
+                <img src="/images/closet.jpg" alt="Closet" height="300px">
             </div>
-            </div>
+
         <div class="middle">
             @{
                 foreach(var product in @ViewBag.RecentProducts){
@@ -45,14 +22,14 @@
             <h4>Recent Orders</h4>
             @{
                 foreach(var order in @ViewBag.RecentOrders){
-                    <p>@order.User.FirstName added @order.Quantity @order.Product.Name ... (@order.CreatedAt)</p>
+                    <p>@order.User.FirstName added @order.Quantity @order.Product.Name</p>
                 }
             }
 
             <h4>New Customers</h4>
             @{
                 foreach(var customer in @ViewBag.RecentCustomers){
-                    <p>@customer.FirstName @customer.LastName created their account (@customer.CreatedAt - @ViewBag.Today)</p>
+                    <p>@customer.FirstName @customer.LastName created their account</p>
                 }
             }
             <a href="/customers">Show all customers</a>
