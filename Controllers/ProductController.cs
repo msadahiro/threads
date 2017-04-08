@@ -18,6 +18,7 @@ namespace eCommerce.Controllers {
         [HttpGet]
         [RouteAttribute("products")]
         public IActionResult Products(){
+            HttpContext.Session.SetString("Error","");
             List<Product> getAllProducts = _context.products
                 .ToList();
             ViewBag.LoginError = HttpContext.Session.GetString("Error");

@@ -22,8 +22,6 @@ namespace eCommerce.Controllers
         [Route("")]
         public IActionResult Dashboard()
         {
-            var today = DateTime.Today;
-            var todayString = today.ToString("yyyy-MM-dd");
             List<User> getRecent = _context.users
                 .OrderByDescending(create => create.CreatedAt)
                 .ToList();
@@ -43,7 +41,6 @@ namespace eCommerce.Controllers
             ViewBag.RecentProducts = latestProducts;
             ViewBag.RecentOrders = latestOrders;
             ViewBag.RecentCustomers = latestCustomers;
-            ViewBag.Today = todayString;
             return View();
         }
         [HttpGet]
@@ -69,6 +66,15 @@ namespace eCommerce.Controllers
             ViewBag.OneCustomer = getOne;
             return View();
         }
-
+        [HttpGet]
+        [RouteAttribute("settings")]
+        public IActionResult Settings(){
+            if(HttpContext.Session.GetInt32("CurrentUser")==null){
+                HttpContext.Session.SetString("Error","Need an account to view Settings page");
+                return RedirectToAction("Login","User");
+            }
+            
+            return View();
+        }
     }
 }
