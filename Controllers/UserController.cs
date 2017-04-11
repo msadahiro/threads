@@ -117,6 +117,10 @@ namespace eCommerce.Controllers
             foreach(var order in deleteAll){
                 _context.Remove(order);
                 _context.SaveChanges();
+                Product updateProductQuantity = _context.products
+                .Where(product => product.id == order.ProductId).SingleOrDefault();
+                updateProductQuantity.Quantity += order.Quantity;
+                _context.SaveChanges();
             }
             User deleteAccount = _context.users
                 .Where(user => user.id == getUserId)
