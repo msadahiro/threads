@@ -71,7 +71,7 @@ namespace eCommerce.Controllers
         [RouteAttribute("logout")]
         public IActionResult Logout(){
             HttpContext.Session.Clear();
-            return RedirectToAction ("Login");
+            return RedirectToAction ("Dashboard","Home");
         }
         // Get : goes to edit page
         [HttpGet]
@@ -107,6 +107,24 @@ namespace eCommerce.Controllers
                 .SingleOrDefault(user => user.id == (int)getUserId);
             ViewBag.Errors = ModelState.Values;
             return View("Edit");
+        }
+        [HttpGet]
+        [RouteAttribute("delete")]
+        public IActionResult Delete(){
+        int? getUserId = HttpContext.Session.GetInt32("CurrentUser");
+        List<Order> deleteAll = _context.orders
+            .Where(order => order.UserId == getUserId).ToList();
+            foreach(var order in deleteAll){
+                _context.Remove(order);
+                _context.SaveChanges();
+            }
+            User deleteAccount = _context.users
+                .Where(user => user.id == getUserId)
+                .SingleOrDefault();
+                _context.Remove(deleteAccount);
+                _context.SaveChanges();
+                HttpContext.Session.Clear();
+                return RedirectToAction("dashboard","Home");
         }
     }
 }
